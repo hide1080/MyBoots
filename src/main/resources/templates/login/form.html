@@ -1,0 +1,56 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+<head>
+    <meta charset="UTF-8"/>
+    <meta http-equiv="X-UA-Compatible" content="IE=edge"/>
+    <meta name="robots" content="noindex"/>
+    <meta name="viewport" content="width=device-width, initial-scale=1"/>
+    <title>サインイン</title>
+    <link rel="stylesheet" th:href="@{/css/bootstrap.min.css}" href="../../static/css/bootstrap.min.css"/>
+    <link rel="stylesheet" th:href="@{/css/bootstrap-theme.min.css}" href="../../static/css/bootstrap-theme.min.css"/>
+    <link rel="stylesheet" type="text/css"
+          href="../../static/css/style.css"
+          th:href="@{/css/style.css}" />
+</head>
+<body>
+<div class="container">
+    <div class="row">
+        <div th:include="navi :: navi (null, 'true', null, null, null)"></div>
+    </div>
+    <div class="row">
+	    <div class="center-block" style="width: 740px;">
+	        <h1>MY BOOTS へサインイン</h1>
+		    <div th:if="${param.error}" class="alert alert-danger">
+		        ユーザー名またはパスワードが正しくありません。
+		    </div>
+		    <form method="post" th:action="@{/login}" action="../goods/showGoods.html" class="" role="form">
+		        <div class="form-group row">
+		            <label for="username" class="control-label col-sm-3 text-right">メールアドレス</label>
+		            <div class="col-sm-9">
+			            <input type="text" id="username" name="username"
+		                        class="form-control" placeholder="E-mail" required="required"
+		                        autofocus="autofocus" size="50"/>
+		            </div>
+		        </div>
+		        <div class="form-group row">
+		            <label for="password" class="control-label col-sm-3 text-right">パスワード</label>
+		            <div class="col-sm-9">
+		                <input type="password" id="password" name="password"
+		                        class="form-control" placeholder="パスワード" required="required"
+		                         size="50"/>
+		            </div>
+		        </div>
+		        <div style="text-align: center;">
+	                <button type="submit" class="btn btn-default">サインイン</button>
+		        </div>
+		    </form>
+	        <div style="text-align: center; margin-top: 15px;">
+	            <p>アカウントをお持ちでない場合は<a th:href="@{/account/form}" href="../account/form.html">こちら</a>から作成してください。</p>
+	        </div>
+	    </div>
+    </div>
+</div>
+<script src="https://ajax.googleapis.com/ajax/libs/jquery/3.6.4/jquery.min.js"></script>
+<script th:src="@{/js/bootstrap.min.js}" src="../../static/js/bootstrap.min.js"></script>
+</body>
+</html>

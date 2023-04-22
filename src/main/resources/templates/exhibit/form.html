@@ -1,0 +1,221 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+<head>
+    <meta charset="UTF-8"/>
+    <meta http-equiv="X-UA-Compatible" content="IE=edge"/>
+    <meta name="robots" content="noindex"/>
+    <meta name="viewport" content="width=device-width, initial-scale=1"/>
+    <title>商品の出品</title>
+    <link rel="stylesheet" th:href="@{/css/bootstrap.min.css}" href="../../static/css/bootstrap.min.css"/>
+    <link rel="stylesheet" th:href="@{/css/bootstrap-theme.min.css}" href="../../static/css/bootstrap-theme.min.css"/>
+    <link rel="stylesheet" type="text/css"
+          href="../../static/css/style.css"
+          th:href="@{/css/style.css}" />
+</head>
+<body>
+<div class="container">
+    <div class="row">
+        <div th:include="navi :: navi (${loginUser}, 'true', 'true', null, 'true')"></div>
+    </div>
+    <div class="row">
+        <div class="col center-block">
+
+            <h1>商品の出品</h1>
+            <div class="row well">
+                <p class="text-danger">※当サイトはデモ用サイトです。実際の売買はできません。登録された情報は運営者の判断により断りなく削除させていただく場合があります。</p>
+            </div>
+
+            <p class="text-info">* が付いているものは必須入力の項目です。</p>
+            <form th:action="@{/exhibit/confirm}"
+                action="confirm.html"
+                th:object="${exhibitForm}"
+                method="post"
+                enctype="multipart/form-data"
+                class="form-horizontal">
+                    <div class="row form-group" th:classappend="${#fields.hasErrors('goodsName')}? 'has-error'">
+                        <label for="goodsName" class="col-sm-2 control-label">商品名*</label>
+                        <div class="col-sm-6">
+                            <input id="goodsName"
+                                type="text"
+                                class="form-control"
+                                th:field="*{goodsName}"
+                                placeholder="商品名"
+                                required="required"
+                                name="goodsName"/>
+                            <span th:if="${#fields.hasErrors('goodsName')}" th:errors="*{goodsName}"
+                                class="help-block">error!</span>
+                        </div>
+                        <div class="col-sm-4">
+                               <span class="text-muted"><small>全角50文字以内</small></span>
+                        </div>
+                    </div>
+                    <div class="row form-group" th:classappend="${#fields.hasErrors('description')}? 'has-error'">
+                        <label for="description" class="col-sm-2 control-label">説明*</label>
+                        <div class="col-sm-6">
+                            <textarea id="description"
+                                class="form-control"
+                                th:field="*{description}"
+                                cols="60"
+                                rows="5"
+                                placeholder="説明"
+                                required="required"
+                                name="description">説明説明説明
+                            </textarea>
+                            <span th:if="${#fields.hasErrors('description')}" th:errors="*{description}"
+                                class="help-block">error!</span>
+                        </div>
+                        <div class="col-sm-4">
+                               <span class="text-muted"><small>全角500文字以内</small></span>
+                        </div>
+                    </div>
+                    <div class="row form-group" th:classappend="${#fields.hasErrors('price')}? 'has-error'">
+                        <label for="price" class="col-sm-2 control-label">価格*</label>
+                        <div class="col-sm-6">
+                            <input id="price"
+                                type="text"
+                                class="form-control"
+                                th:field="*{price}"
+                                placeholder="1000"
+                                required="required"
+                                style="width: 150px;"
+                                name="price"/>
+                            <span th:if="${#fields.hasErrors('price')}" th:errors="*{price}"
+                                class="help-block">error!</span>
+                        </div>
+                        <span class="col-sm-3　text-muted"><small>半角数字</small></span>
+                    </div>
+                    <div class="row form-group" th:classappend="${#fields.hasErrors('state')}? 'has-error'">
+                        <label for="state" class="col-sm-2 control-label">商品の状態*</label>
+                        <div class="col-sm-6">
+                            <select id="state"
+                                class="form-control"
+                                th:field="*{state}"
+                                required="required"
+                                style="max-width: 200px;"
+                                name="state">
+                                <option th:each="i : ${#numbers.sequence(0, 4)}" th:value="${i}" th:text="#{'label.state'+${i}}" value="0">新品</option>
+                            </select>
+                            <span th:if="${#fields.hasErrors('state')}" th:errors="*{state}"
+                                class="help-block">error!</span>
+                        </div>
+                    </div>
+                    <div class="row form-group" th:classappend="${#fields.hasErrors('price')}? 'has-error'">
+                        <label for="deliveryCharge" class="col-sm-2 control-label">配送料の負担*</label>
+                        <div class="col-sm-6">
+                            <select id="deliveryCharge"
+                                class="form-control"
+                                th:field="*{deliveryCharge}"
+                                required="required"
+                                style="max-width: 200px;"
+                                name="deliveryCharge">
+                                <option th:each="i : ${#numbers.sequence(0, 2)}" th:value="${i}" th:text="#{'label.deliveryCharge'+${i}}" value="0">送料込み</option>
+                            </select>
+                            <span th:if="${#fields.hasErrors('deliveryCharge')}" th:errors="*{deliveryCharge}"
+                                class="help-block">error!</span>
+                        </div>
+                    </div>
+                    <div class="row form-group" th:classappend="${#fields.hasErrors('deliveryMethod')}? 'has-error'">
+                        <label for="deliveryMethod" class="col-sm-2 control-label">配送方法*</label>
+                        <div class="col-sm-6">
+                            <select id="deliveryMethod"
+                                class="form-control"
+                                th:field="*{deliveryMethod}"
+                                required="required"
+                                style="max-width: 200px;"
+                                name="deliveryMethod">
+                                <option th:each="i : ${#numbers.sequence(0, 4)}" th:value="${i}" th:text="#{'label.deliveryMethod'+${i}}" value="0">送料込み</option>
+                            </select>
+                            <span th:if="${#fields.hasErrors('deliveryMethod')}" th:errors="*{deliveryMethod}"
+                                class="help-block">error!</span>
+                        </div>
+                    </div>
+                    <div class="row form-group" th:classappend="${#fields.hasErrors('deliveryOrigin')}? 'has-error'">
+                        <label for="deliveryOrigin" class="col-sm-2 control-label">発送元*</label>
+                        <div class="col-sm-6">
+                            <select id="deliveryOrigin"
+                                class="form-control"
+                                th:field="*{deliveryOrigin}"
+                                required="required"
+                                style="max-width: 200px;"
+                                name="deliveryOrigin">
+                                <option th:each="pref : ${prefectures}" th:value="${pref.prefectureId}" th:text="${pref.prefectureName}">東京</option>
+                            </select>
+                            <span th:if="${#fields.hasErrors('deliveryOrigin')}" th:errors="*{deliveryOrigin}"
+                                class="help-block">error!</span>
+                        </div>
+                    </div>
+                    <div class="row form-group" th:classappend="${#fields.hasErrors('deliveryDays')}? 'has-error'">
+                        <label for="deliveryDays" class="col-sm-2 control-label">発送までの日数*</label>
+                        <div class="col-sm-6">
+                            <select id="deliveryDays"
+                                class="form-control"
+                                th:field="*{deliveryDays}"
+                                required="required"
+                                style="max-width: 200px;"
+                                name="deliveryDays">
+                                <option th:each="i : ${#numbers.sequence(0, 3)}" th:value="${i}" th:text="#{'label.deliveryDays'+${i}}" value="0">送料込み</option>
+                            </select>
+                            <span th:if="${#fields.hasErrors('deliveryDays')}" th:errors="*{deliveryDays}"
+                                class="help-block">error!</span>
+                        </div>
+                    </div>
+                    <div class="row form-group form-inline">
+                        <label for="categoryId" class="col-sm-2 control-label">カテゴリ*</label>
+                        <div class="col-sm-3">
+                            <select id="topCategoryId"
+                                class="form-control"
+                                th:field="*{topCategoryId}"
+                                style="width: 180px;"
+                                name="topCategoryId">
+                                <option th:each="topCategory : ${topCategories}" th:value="${topCategory.categoryId}" th:text="${topCategory.categoryName}">ファッション</option>
+                            </select>
+                        </div>
+                        <div class="col-sm-3" th:classappend="${#fields.hasErrors('categoryId')}? 'has-error'">
+                            <select id="categoryId"
+                                class="form-control"
+                                th:field="*{categoryId}"
+                                style="width: 180px; visibility:hidden;"
+                                name="categoryId">
+                                <option value="1"> </option>
+                            </select>
+                        </div>
+                    </div>
+                    <div class="row form-group" th:classappend="${#fields.hasErrors('image')}? 'has-error'">
+                        <label for="image" class="col-sm-2 control-label">商品写真*</label>
+                        <div class="col-sm-6">
+                            <input id="image"
+                                type="file"
+                                th:field="*{image}"
+                                accept="image/jpeg,image/png"
+                                required="required"
+                                name="image"/>
+                            <span th:if="${#fields.hasErrors('image')}" th:errors="*{image}"
+                                class="help-block">error!</span>
+                        </div>
+                        <div class="col-sm-4">
+                            <span class="text-muted"><small>1048576バイト以下のJPGまたはPNGファイル。写真は自動で正方形に修正されます。</small></span>
+                        </div>
+                    </div>
+                <div class="row">
+                    <div style="text-align: center;">
+                        <button type="submit" class="btn btn-default btn-lg">確認</button>
+                    </div>
+                </div>
+            </form>
+        </div>
+    </div>
+    <div class="row">
+        <div th:replace="footer :: footer"></div>
+    </div>
+</div>
+<script src="https://ajax.googleapis.com/ajax/libs/jquery/3.6.4/jquery.min.js"></script>
+<script th:src="@{/js/bootstrap.min.js}" src="../../static/js/bootstrap.min.js"></script>
+<script th:src="@{/js/myboots.js}" src="../../static/js/myboots.js" id="myboots-js" th:attr="data-account-id=${loginUser} ? ${loginUser.accountId}, data-my-page-url=${loginUser} ? @{/account/profile/{accountId}(accountId=${loginUser.accountId})}, data-csrf-header-name=${_csrf.headerName}, data-csrf-token=${_csrf.token}"></script>
+<script type="text/javascript">
+$(function() {
+    $('#topCategoryId').change(categoryChange);
+    categoryChange();
+});
+</script>
+</body>
+</html>

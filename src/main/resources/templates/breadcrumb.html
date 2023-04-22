@@ -1,0 +1,24 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+<head>
+    <meta charset="UTF-8"/>
+</head>
+<body>
+    <div th:fragment="breadcrumb">
+        <div class="breadcrumb">
+            <!--/*/
+            <th:block th:if="${categoryId != null and categoryId > 0}">
+                <span><a th:href="@{/}" href="/">ホーム</a></span>
+                <th:block th:if="${topCategoryId == null || topCategoryId == 0}">
+                    <span th:text="${categoryName}" class="category">ファッション</span>
+                </th:block>
+                <th:block th:if="${topCategoryId != null and topCategoryId > 0}">
+                    <span class="category"><a th:text="${topCategoryName}" th:href="@{/category/{categoryId}(categoryId=${topCategoryId})}" href="/">ファッション</a></span>
+                    <span th:text="${categoryName}" class="category">レディース</span>
+                </th:block>
+            </th:block>
+            /*/-->
+        </div>
+    </div>
+</body>
+</html>

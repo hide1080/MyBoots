@@ -1,0 +1,35 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+<head>
+    <meta charset="UTF-8"/>
+    <meta http-equiv="X-UA-Compatible" content="IE=edge"/>
+    <meta name="robots" content="noindex"/>
+    <meta name="viewport" content="width=device-width, initial-scale=1"/>
+    <title>エラー</title>
+    <link rel="stylesheet" th:href="@{/css/bootstrap.min.css}" href="../../static/css/bootstrap.min.css"/>
+    <link rel="stylesheet" th:href="@{/css/bootstrap-theme.min.css}" href="../../static/css/bootstrap-theme.min.css"/>
+    <link rel="stylesheet" type="text/css"
+          href="../../static/css/style.css"
+          th:href="@{/css/style.css}" />
+</head>
+<body>
+<div class="container">
+    <div class="row">
+        <div th:include="navi :: navi (${loginUser}, 'true', 'true', 'true', 'true')"></div>
+    </div>
+    <div class="row">
+        <div class="col center-block" style="width: 600px;">
+            <div class="row alert alert-danger">
+                <div class="col-sm-3">
+                    <img th:src="@{/images/catpeko.png}" src="../static/images/catpeko.png" width="100" />
+                </div>
+                <div class="col-sm-9"  style="height:100px; padding-top: 20px;">
+                    <p><strong>ご迷惑をおかけして申し訳ございません。</strong></p>
+                    <p>エラーが発生しました。<a th:href="@{/}" href="goods/showGoods.html">ホーム</a>に戻ってやり直してください。</p>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+</body>
+</html>

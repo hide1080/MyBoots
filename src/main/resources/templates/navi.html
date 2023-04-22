@@ -1,0 +1,56 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+<head>
+    <meta charset="UTF-8"/>
+    <meta name="viewport" content="width=device-width, initial-scale=1"/>
+</head>
+<body>
+    <div th:fragment="navi (loginUser, showhome, showmypage, showexhibit, showlogin)">
+        <nav class="navbar navbar-default">
+            <div class="container-fluid">
+                <!-- Brand and toggle get grouped for better mobile display -->
+                <div class="navbar-header">
+                    <button type="button" class="navbar-toggle collapsed" data-toggle="collapse" data-target="#nav-collapse-area" aria-expanded="false">
+                        <span class="sr-only">Toggle navigation</span>
+                        <span class="icon-bar"></span>
+                        <span class="icon-bar"></span>
+                        <span class="icon-bar"></span>
+                    </button>
+                    <a class="navbar-brand" th:href="@{/}">
+                        <img th:src="@{/images/catinboots-150x130.png}" src="../../images/catinboots-150x130.png" width="46" height="40" style="z-index: 100;"/>
+                        <img th:src="@{/images/title.png}" src="../../images/title.png" class="header-image" />
+                    </a>
+                </div>
+
+                <!-- Collect the nav links, forms, and other content for toggling -->
+                <div class="collapse navbar-collapse" id="nav-collapse-area">
+                    <ul class="nav navbar-nav navbar-right nav-for-pc">
+                        <!-- <li th:if="${loginUser}" class="navbar-username">
+                            <span th:text="${loginUser.nickname} + 'さんログイン中'">ゲスト</span>
+                        </li> -->
+                        <li th:if="${showhome}">
+                            <a th:href="@{/}" href="../goods/showGoods.html">ホーム</a>
+                        </li>
+                        <li th:if="${loginUser} and ${showmypage}">
+                            <a th:href="@{/account/profile/{accountId}(accountId=${loginUser.accountId})}" href="account/profile.html">マイページ</a>
+                        </li>
+                        <li th:if="${loginUser} and ${showexhibit}">
+                            <a th:href="@{/exhibit/form}" href="exhibit/form.html">出品する</a>
+                        </li>
+                        <li th:if="${showlogin}">
+                            <a th:if="${loginUser}" th:href="@{/logout}" href="../login/loginForm.html">サインアウト</a>
+                            <a th:if="${loginUser == null}" th:href="@{/loginForm}" href="../login/loginForm.html">サインイン</a>
+                        </li>
+                    </ul>
+                    <form th:action="@{/search}" class="navbar-form navbar-right form-inline" role="search" method="GET">
+                        <div class="form-group">
+                            <input type="text" name="keyword" class="form-control" placeholder="キーワードで探す" />
+                        </div>
+                        <input type="image" th:src="@{/images/searchbtn.png}" src="../static/images/searchbtn.png" alt="検索" class="" style="vertical-align: middle;" />
+                    </form>
+                </div><!-- /.navbar-collapse -->
+            </div><!-- /.container-fluid -->
+        </nav>
+    </div>
+</body>
+</html>

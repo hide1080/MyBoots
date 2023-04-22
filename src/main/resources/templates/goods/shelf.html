@@ -1,0 +1,41 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+<head>
+    <meta charset="UTF-8"/>
+    <meta http-equiv="X-UA-Compatible" content="IE=edge"/>
+</head>
+<body>
+<div class="container">
+    <div th:fragment="shelf (goodsList)">
+        <div th:if="${goodsList}" th:fragment="shelf" class="col-sm-12">
+            <ul class="list-inline">
+	            <li th:each="goods : ${goodsList}" class="col-sm-3">
+	                <div class="image-container" th:classappend="${goods.soldOut} ? 'thum-soldout'">
+                        <a th:href="@{/goods/{id}(id=${goods.goodsId})}"
+                           href="./showDetail.html">
+			                <img th:src="@{/api/images/{path}/{fileName}(path=${@environment.getProperty('images.goods')}, fileName=${goods.thumbnail})}" 
+			                    th:alt-title="${goods.goodsName}"
+			                    src="../../images/no-image.png"
+			                    class="goods-thumb"
+			                />
+                        </a>
+	                </div>
+	                <div class="goodslist-goods-name">
+	                    <p>
+	                        <a th:text="${goods.goodsName}"
+	                           th:href="@{/goods/{id}(id=${goods.goodsId})}"
+	                           href="./showDetail.html">Tシャツ
+	                        </a>
+	                    </p>
+	                </div>
+                    <div class="goodslist-price">
+                        <span th:text="'¥' + ${#numbers.formatInteger(goods.price, 3, 'COMMA')}"
+                            style="border-bottom: 1px solid #888;">¥100</span>
+                    </div>
+	            </li>
+            </ul>
+	    </div>
+	</div>
+</div>
+</body>
+</html>

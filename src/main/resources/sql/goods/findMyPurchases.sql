@@ -1,0 +1,52 @@
+SELECT
+    g.goods_id        AS goods_id,
+    g.goods_name      AS goods_name,
+    g.description     AS description,
+    g.price           AS price,
+    g.state           AS state,
+    g.delivery_charge AS delivery_charge,
+    g.delivery_method AS delivery_method,
+    g.delivery_days   AS delivery_days,
+    g.image           AS image,
+    g.thumbnail       AS thumbnail,
+    g.sale_end_date   AS sale_end_date,
+    a.account_id      AS account_id,
+    a.nickname        AS nickname,
+    c.category_id     AS category_id,
+    c.category_name   AS category_name,
+    c.parent_id       AS parent_id,
+    p.prefecture_id   AS prefecture_id,
+    p.prefecture_name AS prefecture_name,
+    CASE WHEN g.sale_end_date IS NULL THEN 0 ELSE 1 END AS sold_out
+FROM
+    goods AS g
+    INNER JOIN
+    categories AS c
+    ON
+    g.category_id = c.category_id
+    INNER JOIN
+    accounts AS a
+    ON
+    a.account_id = g.account_id
+    INNER JOIN
+    prefectures AS p
+    ON
+    p.prefecture_id = g.delivery_origin
+    INNER JOIN
+    order_lines AS l
+    ON
+    l.goods_id = g.goods_id
+    INNER JOIN
+    orders AS o
+    ON
+    o.order_id = l.order_id
+WHERE
+    o.account_id = :accountId
+ORDER BY
+    o.order_date DESC,
+    o.order_id DESC,
+    l.line_no ASC
+    LIMIT
+        :pageSize
+    OFFSET
+        :offset

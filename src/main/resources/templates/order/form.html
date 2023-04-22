@@ -1,0 +1,162 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+<head>
+    <meta charset="UTF-8"/>
+    <meta http-equiv="X-UA-Compatible" content="IE=edge"/>
+    <meta name="robots" content="noindex"/>
+    <meta name="viewport" content="width=device-width, initial-scale=1"/>
+    <title>購入手続き - MY BOOTS | フリマサイト（デモ）</title>
+    <link rel="stylesheet" th:href="@{/css/bootstrap.min.css}" href="../../static/css/bootstrap.min.css"/>
+    <link rel="stylesheet" th:href="@{/css/bootstrap-theme.min.css}" href="../../static/css/bootstrap-theme.min.css"/>
+    <link rel="stylesheet" type="text/css"
+          href="../../static/css/style.css"
+          th:href="@{/css/style.css}" />
+</head>
+<body>
+
+<div class="container">
+    <div class="row">
+        <div th:include="navi :: navi (${loginUser}, null, null, null, null)"></div>
+    </div>
+    <div class="row">
+        <h1>購入手続き</h1>
+    </div>
+    <div class="row">
+        <div class="col-sm-12">
+            <div class="row well">
+                <p>お支払い方法を選択して「内容を確認する」を押してください。</p>
+                <p class="text-danger">※当サイトはデモ用サイトです。実際の売買はできません。</p>
+            </div>
+        </div>
+    </div>
+    <div class="row">
+        <h2 style="margin-left: 10px;">購入情報</h2>
+    </div>
+    <div class="row">
+        <div class="purchase-table col-sm-12">
+            <dl class="row purchase-row">
+                <dd class="col-sm-3 purchase-th" style="height: 120px;">商品</dd>
+                <dd class="col-sm-9 purchase-cell">
+                    <div class="row">
+	                    <div class="col-sm-3">
+			                <img th:src="@{/api/images/{path}/{fileName}(path=${@environment.getProperty('images.goods')}, fileName=${goods.image})}" 
+			                    th:alt-title="${goods.goodsName}"
+			                    class="goods-image goodsdetail-image"
+			                    src="../../static/images/no-image.png"
+			                    style="max-width: 100px; max-height: 100px;" />
+	                    </div>
+	                    <div class="col-sm-9">
+	                    <p th:text="${goods.goodsName}" style="font-size: 1.5em; font-weight: bold;">ほげ</p>
+	                    <span th:text="'¥' + ${#numbers.formatInteger(goods.price, 3, 'COMMA')}" class="">￥4,900</span>
+                        <small>
+	                    <th:block th:switch="${goods.deliveryCharge}">
+	                        <span th:case="0" class="bg-primary orderform-method">送料込み</span>
+	                        <!--/*/
+	                        <span th:case="1" class="bg-primary orderform-method">送料着払い</span>
+	                        <span th:case="2" class="bg-primary orderform-method">手渡し</span>
+	                        /*/-->
+	                    </th:block>
+	                    </small>
+	                    </div>
+                    </div>
+                </dd>
+            </dl>
+        </div>
+    </div>
+    <div class="row">
+        <div class="purchase-table col-sm-12">
+            <dl class="row purchase-row">
+                <dd class="col-sm-3 purchase-th">クーポン</dd>
+                <dd class="col-sm-9 purchase-cell">
+                    <span class="message">利用可能なクーポンはありません。</span>
+                </dd>
+            </dl>
+        </div>
+    </div>
+    <div class="row">
+        <div class="purchase-table col-sm-12">
+            <dl class="row purchase-row">
+                <dd class="col-sm-3 purchase-th">ポイント</dd>
+                <dd class="col-sm-9 purchase-cell">
+                    <span class="message">利用可能なポイントはありません。</span>
+                </dd>
+            </dl>
+        </div>
+    </div>
+    <div class="row">
+        <div class="purchase-table col-sm-12">
+            <dl class="row purchase-row">
+                <dd class="col-sm-3 purchase-th">お支払方法</dd>
+                <dd class="col-sm-9 purchase-cell">
+                    <div class="row">
+                        <div class="col-sm-8">
+                            <span class="message">銀行振り込み</span>
+                        </div>
+                        <div class="col-sm-4" style="text-align: right;">
+                            <a class="btn btn-default btn-lg b-cart disabled" style="margin: 7px 0px;">変更</a>
+                        </div>
+                    </div>
+                </dd>
+            </dl>
+        </div>
+    </div>
+    <div class="row bottom-margin">
+        <div class="purchase-table col-sm-12">
+            <dl class="row purchase-row">
+                <dd class="col-sm-3 purchase-th">お支払金額</dd>
+                <dd class="col-sm-9 purchase-cell">
+                    <div class="pull-right">
+                        <strong>
+                            <span th:text="'¥' + ${#numbers.formatInteger(goods.price, 3, 'COMMA')}" class="message price">￥4,900</span>
+                        </strong>
+                    </div>
+                </dd>
+            </dl>
+        </div>
+    </div>
+    <div class="row">
+        <h2 style="margin-left: 10px;">配送情報</h2>
+    </div>
+    <div class="row bottom-margin">
+        <div class="purchase-table col-sm-12">
+            <dl class="row purchase-row" th:object="${loginUser}">
+                <dd class="col-sm-3 purchase-th" th:style="*{address3} ? 'height: 120px;' : 'height: 100px;'" style="height: 120px;">配送先</dd>
+                <dd class="col-sm-5 purchase-cell">
+                    <span th:text="*{lastname}">山田</span><span th:text="*{firstname}">太郎</span><br />
+                    <span th:text="'〒' + *{zip}">〒1234567</span><br />
+                    <span th:text="${prefectureName}">東京都</span><span th:text="*{address1}">中央区</span><br />
+                    <span th:text="*{address2}">自由市場１－２－３</span><br />
+                    <span th:if="*{address3}" th:text="*{address3}">自由マンション９９９号室</span>
+                </dd>
+                <dd class="col-sm-4 purchase-cell" style="text-align: right;">
+                    <a class="btn btn-default btn-lg b-cart disabled" style="margin: 7px 0px;">変更</a>
+                </dd>
+            </dl>
+        </div>
+    </div>
+    <div class="row bottom-margin text-center">
+        <a class="btn btn-default btn-lg b-confirm" href="javascript:void(0);">内容を確認する</a>
+    </div>
+    <div class="row">
+        <div th:replace="footer :: footer"></div>
+    </div>
+</div>
+<form th:action="@{/order/confirm}" action="confirm.html" method="post" name="confirmForm">
+    <input type="hidden" name="signature" th:value="${signature}"/>
+</form>
+<script src="https://ajax.googleapis.com/ajax/libs/jquery/3.6.4/jquery.min.js"></script>
+<script th:src="@{/js/bootstrap.min.js}" src="../../static/js/bootstrap.min.js"></script>
+<script type="text/javascript">
+$(function(){
+    document.onload = function() {
+	    alert("当サイトはデモ用サイトです。実際の売買はできません。");
+    }
+    $(".b-confirm").click(
+        function() {
+            document.confirmForm.submit();
+        }
+    );
+});
+</script>
+</body>
+</html>

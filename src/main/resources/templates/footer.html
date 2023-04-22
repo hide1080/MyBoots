@@ -1,0 +1,21 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+<head>
+    <meta charset="UTF-8"/>
+</head>
+<body>
+    <footer th:fragment="footer">
+        <nav class="footer-links">
+            <ul class="list-inline">
+                <li class="footer-link">
+                    <a th:href="@{/}" href="/">ホーム</a>
+                </li>
+                <li class="footer-link">プライバシーポリシー</li>
+                <li class="footer-link">ヘルプ</li>
+                <li class="footer-link">運営会社</li>
+            </ul>
+        </nav>
+        <p class="footer-right footer-hoge">© My Boots.</p>
+    </footer>
+</body>
+</html>

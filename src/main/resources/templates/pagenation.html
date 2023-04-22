@@ -1,0 +1,46 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+<head>
+    <meta charset="UTF-8"/>
+</head>
+<body>
+    <div th:fragment="pagenation (page, categoryId)">
+        <div th:if="${page.totalElements} gt 0" class="pagenation">
+            <ul class="list-inline text-center">
+                <li>
+                    <a class="btn btn-default btn-sm"
+                        th:if="${categoryId}"
+                        th:disabled="${page.first}"
+                        th:classappend="${page.first} ? 'disabled' : ''"
+                        th:href="@{/category/{categoryId}(categoryId=${categoryId},page=${page.number - 1})}"
+                        >前へ</a>
+                    <!--/*/
+                    <a class="btn btn-default btn-sm"
+                        th:unless="${categoryId}"
+                        th:disabled="${page.first}"
+                        th:classappend="${page.first} ? 'disabled' : ''"
+                        th:href="@{${#httpServletRequest.getServletPath()}(page=${page.number - 1})}"
+                        >前へ</a>
+                    /*/-->
+                </li>
+                <li>
+                    <a class="btn btn-default btn-sm"
+                        th:if="${categoryId}"
+                        th:disabled="${page.last}"
+                        th:classappend="${page.last} ? 'disabled' : ''"
+                        th:href="@{/category/{categoryId}(categoryId=${categoryId},page=${page.number + 1})}"
+                        >次へ</a>
+                    <!--/*/
+                    <a class="btn btn-default btn-sm"
+                        th:unless="${categoryId}"
+                        th:disabled="${page.last}"
+                        th:classappend="${page.last} ? 'disabled' : ''"
+                        th:href="@{${#httpServletRequest.getServletPath()}(page=${page.number + 1})}"
+                        >次へ</a>
+                    /*/-->
+                </li>
+            </ul>
+        </div>
+    </div>
+</body>
+</html>

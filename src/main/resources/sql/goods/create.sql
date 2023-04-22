@@ -1,0 +1,30 @@
+INSERT INTO goods (
+    goods_name,
+    description,
+    price,
+    state,
+    delivery_charge,
+    delivery_method,
+    delivery_origin,
+    delivery_days,
+    image,
+    thumbnail,
+    account_id,
+    category_id,
+    created_datetime
+)
+VALUES (
+    :goodsName,
+    :description,
+    :price,
+    :state,
+    :deliveryCharge,
+    :deliveryMethod,
+    :deliveryOrigin,
+    :deliveryDays,
+    :image,
+    :thumbnail,
+    :accountId,
+    :categoryId,
+    now()
+)

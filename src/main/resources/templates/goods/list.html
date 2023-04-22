@@ -1,0 +1,78 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+<head>
+  <meta charset="UTF-8" />
+  <meta http-equiv="X-UA-Compatible" content="IE=edge" />
+  <meta name="robots" content="noindex" />
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
+  <title>商品一覧 - MY BOOTS | フリマサイト（デモ）</title>
+  <link rel="stylesheet" th:href="@{/css/bootstrap.min.css}" href="../../static/css/bootstrap.min.css" />
+  <link rel="stylesheet" th:href="@{/css/bootstrap-theme.min.css}" href="../../static/css/bootstrap-theme.min.css" />
+  <link rel="stylesheet" type="text/css"
+        href="../../static/css/style.css"
+        th:href="@{/css/style.css}" />
+</head>
+<body>
+<div class="container">
+  <div class="row">
+    <div th:include="navi :: navi (${loginUser}, 'true', 'true', 'true', 'true')"></div>
+  </div>
+  <div class="row">
+    <div>
+      <form method="get" th:action="@{/category/}" class="form-inline" name="categoryForm">
+        <button class="btn btn-default btn-category col-sm-2 b-category"
+                th:each="category : ${categories}"
+                th:attr="data-category=${category.categoryId}">
+          <i th:text="${category.categoryName}" class="glyphicon" th:classappend="(${category.categoryId} == ${topCategoryId} or ${category.categoryId} == ${categoryId}) ? 'glyphicon-ok'">ファッション</i>
+        </button>
+      </form>
+      <div
+          th:if="${subCategories}">
+        <form method="get" th:action="@{/category/}" class="form-inline" name="categoryForm">
+          <button class="btn btn-default btn-category col-sm-2 b-subcategory"
+                  th:each="subCategory : ${subCategories}"
+                  th:attr="data-category=${subCategory.categoryId}">
+            <i th:text="${subCategory.categoryName}" class="glyphicon" th:classappend="${subCategory.categoryId} == ${categoryId} ? 'glyphicon-ok'">レディース</i>
+          </button>
+        </form>
+      </div>
+    </div>
+  </div>
+  <div class="row">
+    <div th:include="breadcrumb :: breadcrumb"></div>
+  </div>
+  <div class="row">
+    <div class="col-sm-12">
+      <h1 th:text="${topCategoryName} ? ${categoryName} : (${categoryName} ? ${categoryName} : (${keyword} ? ${keyword} : '新着アイテム'))"></h1>
+    </div>
+  </div>
+  <div class="row">
+    <div th:include="pagenation :: pagenation (${page}, ${categoryId})"></div>
+  </div>
+  <div class="row">
+    <div th:replace="goods/shelf :: shelf (${page.content})"></div>
+  </div>
+  <div class="row">
+    <div th:include="pagenation :: pagenation (${page}, ${categoryId})"></div>
+  </div>
+  <div class="row">
+    <div th:replace="footer :: footer"></div>
+  </div>
+</div>
+<script src="https://ajax.googleapis.com/ajax/libs/jquery/3.6.4/jquery.min.js"></script>
+<script th:src="@{/js/bootstrap.min.js}" src="../../static/js/bootstrap.min.js"></script>
+<script th:src="@{/js/myboots.js}" src="../../static/js/myboots.js" id="myboots-js"
+        th:attr="data-account-id=${loginUser} ? ${loginUser.accountId}, data-my-page-url=${loginUser} ? @{/account/profile/{accountId}(accountId=${loginUser.accountId})}, data-csrf-header-name=${_csrf.headerName}, data-csrf-token=${_csrf.token}"></script>
+<script type="text/javascript">
+    $(function() {
+        $(".b-category, .b-subcategory").click(function() {
+            var $f = $(this).closest("form");
+            var action = $f.attr("action");
+            $f.attr("action", action + this.dataset.category);
+            $f.submit();
+        });
+        queryNotices();
+    });
+</script>
+</body>
+</html>
