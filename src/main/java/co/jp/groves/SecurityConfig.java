@@ -25,23 +25,23 @@ public class SecurityConfig {
 
     @Bean
     public SecurityFilterChain securityFilterChain(HttpSecurity http) throws Exception {
-        http.authorizeHttpRequests(reg -> reg.antMatchers("/")
+        http.authorizeHttpRequests(reg -> reg.requestMatchers("/")
                 .permitAll()
-                .antMatchers("/favicon.ico", "/css/**", "/js/**", "/images/**", "/fonts/**")
+                .requestMatchers("/favicon.ico", "/css/**", "/js/**", "/images/**", "/fonts/**")
                 .permitAll()
-                .antMatchers("/loginForm")
+                .requestMatchers("/loginForm")
                 .permitAll()
-                .antMatchers("/account/**")
+                .requestMatchers("/account/**")
                 .permitAll()
-                .antMatchers("/category/**")
+                .requestMatchers("/category/**")
                 .permitAll()
-                .antMatchers("/goods/**")
+                .requestMatchers("/goods/**")
                 .permitAll()
-                .antMatchers("/search/**")
+                .requestMatchers("/search/**")
                 .permitAll()
-                .antMatchers("/api/**")
+                .requestMatchers("/api/**")
                 .permitAll()
-                .antMatchers("/h2-console/**")
+                .requestMatchers("/h2-console/**")
                 .permitAll()
                 .anyRequest()
                 .authenticated());
@@ -64,7 +64,7 @@ public class SecurityConfig {
         http.setSharedObject(RequestCache.class, cache);
         http.sessionManagement().sessionCreationPolicy(SessionCreationPolicy.ALWAYS);
         http.headers().frameOptions().disable();
-        http.csrf().ignoringAntMatchers("/h2-console/**");
+        http.csrf().ignoringRequestMatchers("/h2-console/**");
 
         return http.build();
     }
