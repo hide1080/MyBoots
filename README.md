@@ -1,5 +1,5 @@
-# MyBoots2
-自己学習用のフリマWebアプリ（Spring Boots 2）
+# MyBoots
+自己学習用のフリマWebアプリ（Spring Boot 3）
 
 2015/12頃にSpring Bootの学習目的でフリマサイトのWebアプリを作成。
 ※以下を参考にした。

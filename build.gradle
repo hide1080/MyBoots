@@ -1,5 +1,5 @@
 plugins {
-	id 'org.springframework.boot' version '2.7.11'
+	id 'org.springframework.boot' version '3.0.6'
 	id 'io.spring.dependency-management' version '1.1.0'
 	id 'java'
 	id 'groovy'
@@ -21,7 +21,7 @@ dependencies {
 	implementation 'org.springframework.boot:spring-boot-starter-security'
 	implementation 'org.springframework.boot:spring-boot-starter-validation'
 	implementation 'org.springframework.data:spring-data-commons'
-	implementation 'org.thymeleaf.extras:thymeleaf-extras-springsecurity5'
+	implementation 'org.thymeleaf.extras:thymeleaf-extras-springsecurity6'
 	implementation 'org.apache.commons:commons-lang3:3.12.0'
 	implementation 'commons-io:commons-io:2.11.0'
 	implementation 'net.coobird:thumbnailator:0.4.19'
