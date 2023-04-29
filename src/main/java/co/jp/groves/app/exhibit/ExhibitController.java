@@ -105,7 +105,7 @@ class ExhibitController {
             final var file = form.getImage();
             final var tempDir = /*System.getProperty("user.home")+*/ this.imagesDir + "/" + this.imagesTemp;
             final var extension = FilenameUtils.getExtension(file.getOriginalFilename());
-            final var fileName = "%1$09d_%1$019d.%s"
+            final var fileName = "%09d_%019d.%s"
                     .formatted(userDetails.getAccount().getAccountId(), System.currentTimeMillis(), extension);
             try (final var output =
                     new BufferedOutputStream(new FileOutputStream(FilenameUtils.concat(tempDir, fileName)))) {
