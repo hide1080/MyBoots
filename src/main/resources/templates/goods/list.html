@@ -15,7 +15,7 @@
 <body>
 <div class="container">
   <div class="row">
-    <div th:include="navi :: navi (${loginUser}, 'true', 'true', 'true', 'true')"></div>
+    <div th:insert="~{navi :: navi (${loginUser}, 'true', 'true', 'true', 'true')}"></div>
   </div>
   <div class="row">
     <div>
@@ -39,7 +39,7 @@
     </div>
   </div>
   <div class="row">
-    <div th:include="breadcrumb :: breadcrumb"></div>
+    <div th:insert="~{breadcrumb :: breadcrumb}"></div>
   </div>
   <div class="row">
     <div class="col-sm-12">
@@ -47,16 +47,16 @@
     </div>
   </div>
   <div class="row">
-    <div th:include="pagenation :: pagenation (${page}, ${categoryId})"></div>
+    <div th:insert="~{pagenation :: pagenation (${page}, ${categoryId})}"></div>
   </div>
   <div class="row">
-    <div th:replace="goods/shelf :: shelf (${page.content})"></div>
+    <div th:replace="~{goods/shelf :: shelf (${page.content})}"></div>
   </div>
   <div class="row">
-    <div th:include="pagenation :: pagenation (${page}, ${categoryId})"></div>
+    <div th:insert="~{pagenation :: pagenation (${page}, ${categoryId})}"></div>
   </div>
   <div class="row">
-    <div th:replace="footer :: footer"></div>
+    <div th:replace="~{footer :: footer}"></div>
   </div>
 </div>
 <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.6.4/jquery.min.js"></script>

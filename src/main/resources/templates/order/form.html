@@ -16,7 +16,7 @@
 
 <div class="container">
     <div class="row">
-        <div th:include="navi :: navi (${loginUser}, null, null, null, null)"></div>
+        <div th:insert="~{navi :: navi (${loginUser}, null, null, null, null)}"></div>
     </div>
     <div class="row">
         <h1>購入手続き</h1>
@@ -138,7 +138,7 @@
         <a class="btn btn-default btn-lg b-confirm" href="javascript:void(0);">内容を確認する</a>
     </div>
     <div class="row">
-        <div th:replace="footer :: footer"></div>
+        <div th:replace="~{footer :: footer}"></div>
     </div>
 </div>
 <form th:action="@{/order/confirm}" action="confirm.html" method="post" name="confirmForm">

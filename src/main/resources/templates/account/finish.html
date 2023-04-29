@@ -15,7 +15,7 @@
 <body>
 <div class="container">
     <div class="row">
-        <div th:include="navi :: navi (${loginUser}, 'true', null, null, 'true')"></div>
+        <div th:insert="~{navi :: navi (${loginUser}, 'true', null, null, 'true')}"></div>
     </div>
     <div class="row">
         <div class="col center-block">
@@ -25,7 +25,7 @@
         </div>
     </div>
     <div class="row">
-        <div th:replace="footer :: footer"></div>
+        <div th:replace="~{footer :: footer}"></div>
     </div>
 </div>
 <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.6.4/jquery.min.js"></script>
