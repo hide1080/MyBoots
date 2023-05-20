@@ -42,7 +42,10 @@ out
 build
 bin
 
+# npm
+/node_modules
+
 # Other
-*.log
+*.log*
 *.swp
 *.bak

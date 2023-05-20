@@ -140,7 +140,6 @@
 </form>
 <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.6.4/jquery.min.js"></script>
 <script th:src="@{/js/bootstrap.min.js}" src="../../static/js/bootstrap.min.js"></script>
-<script th:src="@{/js/myboots.js}" src="../../static/js/myboots.js" id="myboots-js" th:attr="data-account-id=${loginUser} ? ${loginUser.accountId}, data-my-page-url=${loginUser} ? @{/account/profile/{accountId}(accountId=${loginUser.accountId})}, data-csrf-header-name=${_csrf.headerName}, data-csrf-token=${_csrf.token}"></script>
 <script type="text/javascript">
 $(function(){
     $(".b-purchase").click(

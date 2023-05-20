@@ -7,6 +7,7 @@ plugins {
 	id 'idea' // optional (to generate IntelliJ IDEA project files)
 	id "org.flywaydb.flyway" version "9.16.3"
 	id "io.freefair.sass-java" version "8.0.1"
+	id "com.github.node-gradle.node" version "4.0.0"
 }
 
 repositories {
@@ -58,11 +59,9 @@ spotless {
 		endWithNewline()
 	}
 	java {
-//		googleJavaFormat('1.16.0')
 		palantirJavaFormat('2.9.0')
 		// fix formatting of type annotations
 		formatAnnotations()
-//		licenseHeader '/* (C)$YEAR */'
 	}
 }
 
@@ -77,3 +76,9 @@ test {
 		events "passed", "skipped", "failed"
 	}
 }
+
+task tsc(type: NpxTask) {
+	command = 'tsc'
+}
+
+processResources.dependsOn tsc

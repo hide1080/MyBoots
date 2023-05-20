@@ -172,9 +172,9 @@
                         </div>
                         <div class="col-sm-3" th:classappend="${#fields.hasErrors('categoryId')}? 'has-error'">
                             <select id="categoryId"
-                                class="form-control"
+                                class="form-control invisible"
                                 th:field="*{categoryId}"
-                                style="width: 180px; visibility:hidden;"
+                                style="width: 180px;"
                                 name="categoryId">
                                 <option value="1"> </option>
                             </select>
@@ -210,12 +210,10 @@
 </div>
 <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.6.4/jquery.min.js"></script>
 <script th:src="@{/js/bootstrap.min.js}" src="../../static/js/bootstrap.min.js"></script>
-<script th:src="@{/js/myboots.js}" src="../../static/js/myboots.js" id="myboots-js" th:attr="data-account-id=${loginUser} ? ${loginUser.accountId}, data-my-page-url=${loginUser} ? @{/account/profile/{accountId}(accountId=${loginUser.accountId})}, data-csrf-header-name=${_csrf.headerName}, data-csrf-token=${_csrf.token}"></script>
-<script type="text/javascript">
-$(function() {
-    $('#topCategoryId').change(categoryChange);
-    categoryChange();
-});
+<script type="module">
+    import {byId, addEventListener, categoryChange} from "/js/index.mjs"
+    addEventListener(window, "load", categoryChange)
+    addEventListener(byId("topCategoryId"), "change", categoryChange)
 </script>
 </body>
 </html>

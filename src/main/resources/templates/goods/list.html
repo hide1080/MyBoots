@@ -59,20 +59,19 @@
     <div th:replace="~{footer :: footer}"></div>
   </div>
 </div>
-<script src="https://ajax.googleapis.com/ajax/libs/jquery/3.6.4/jquery.min.js"></script>
-<script th:src="@{/js/bootstrap.min.js}" src="../../static/js/bootstrap.min.js"></script>
-<script th:src="@{/js/myboots.js}" src="../../static/js/myboots.js" id="myboots-js"
-        th:attr="data-account-id=${loginUser} ? ${loginUser.accountId}, data-my-page-url=${loginUser} ? @{/account/profile/{accountId}(accountId=${loginUser.accountId})}, data-csrf-header-name=${_csrf.headerName}, data-csrf-token=${_csrf.token}"></script>
-<script type="text/javascript">
-    $(function() {
-        $(".b-category, .b-subcategory").click(function() {
-            var $f = $(this).closest("form");
-            var action = $f.attr("action");
-            $f.attr("action", action + this.dataset.category);
-            $f.submit();
-        });
-        queryNotices();
-    });
+</script><script src="https://ajax.googleapis.com/ajax/libs/jquery/3.6.4/jquery.min.js"></script>
+<script type="module" id="myboots-js" th:attr="data-account-id=${loginUser} ? ${loginUser.accountId}, data-my-page-url=${loginUser} ? @{/account/profile/{accountId}(accountId=${loginUser.accountId})}, data-csrf-header-name=${_csrf.headerName}, data-csrf-token=${_csrf.token}">
+    import {bySelector, addEventListener, queryNotices} from "/js/index.mjs"
+    window.onload = () => {
+        bySelector(".b-category, .b-subcategory").forEach(e => {
+            addEventListener(e, "click", function() {
+                const form = this.closest("form")
+                form.action += this.dataset.category
+                form.submit()
+            })
+        })
+        queryNotices()
+    }
 </script>
 </body>
 </html>

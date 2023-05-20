@@ -7,6 +7,9 @@ import javax.sql.DataSource;
 import org.springframework.boot.autoconfigure.jdbc.DataSourceProperties;
 import org.springframework.boot.context.properties.ConfigurationProperties;
 import org.springframework.boot.jdbc.DataSourceBuilder;
+import org.springframework.boot.web.embedded.tomcat.TomcatServletWebServerFactory;
+import org.springframework.boot.web.server.MimeMappings;
+import org.springframework.boot.web.server.WebServerFactoryCustomizer;
 import org.springframework.cache.CacheManager;
 import org.springframework.cache.annotation.EnableCaching;
 import org.springframework.cache.concurrent.ConcurrentMapCache;
@@ -59,5 +62,17 @@ public class AppConfig {
                 new ConcurrentMapCache("prefectures"),
                 new ConcurrentMapCache("sql")));
         return cacheManager;
+    }
+
+    // Tomcatの現行バージョンでは拡張子がmjsのファイルに対して正しいメディアタイプを設定してくれないため自分で設定する。
+    // 将来のバージョンでは対応されるだろう
+    @Configuration
+    public class MimeMappingCustomizer implements WebServerFactoryCustomizer<TomcatServletWebServerFactory> {
+        @Override
+        public void customize(TomcatServletWebServerFactory container) {
+            MimeMappings mappings = new MimeMappings(MimeMappings.DEFAULT);
+            mappings.add("mjs", "text/javascript");
+            container.setMimeMappings(mappings);
+        }
     }
 }
